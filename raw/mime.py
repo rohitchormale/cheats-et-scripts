@@ -12,14 +12,12 @@ except ImportError:
     from StringIO import StringIO
 
 
-
-
-
 ATTACH_FILE = "/tmp/foo.bar"
+OUT_FILE = "/tmp/bar.foo"
 
 #headers
 msg = MIMEMultipart()
-msg['To'] = self.config['email']
+msg['To'] = 'foo@example.com'
 msg['From'] = 'xxx@xxx.com'
 msg['Subject'] = "Test"
 mime_msg['Date'] = formatdate(localtime=True) 
@@ -32,10 +30,10 @@ msg.attach(txtmsg)
 try:
     fp = open(ATTACH_FILE, )
     temp = MIMEAudio(fp.read())
-    temp.add_header('content-disposition', 'attachment', filename=self.outfile)
+    temp.add_header('content-disposition', 'attachment', filename=OUT_FILE)
     fp.close()
     msg.attach(temp)
-except Exeption as e:
+except (Exception, e):
     print e
 
 final_msg = StringIO(mime_msg.as_string())
