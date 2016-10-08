@@ -19,11 +19,10 @@ def validate(port, interface):
             raise ValueError
         if not interface.lower() == "localhost":
             socket.inet_aton(interface)
-            return True
     except (ValueError, socket.error) as e:
         print e
         return False
-
+    return True
 
 def start_echo_server(port, interface):
     def handle_client(client):
