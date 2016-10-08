@@ -1,6 +1,8 @@
+#!/usr/bin/env python
 from PySide import QtGui  
 from PySide import QtCore
 from PySide import QtUiTools
+
 
 class MyWidget(QtGui.QMainWindow):
     def __init__(self, *args):  
