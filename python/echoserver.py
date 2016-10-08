@@ -10,7 +10,6 @@ import threading
 import sys
 
 
-
 def validate(port, interface):
     """Validate port & interface
     return boolean True/False"""
@@ -45,19 +44,33 @@ def start_echo_server(port, interface):
         client_handler.start()
 
 
+def start_echo_service(port, interface):
+    import daemon
+    with daemon.DaemonContext():
+        start_echo_server(port, interface)
+
+
 def main():
     # Take args from user
     interface = raw_input("Enter an interface (default 127.0.0.1): ")
     interface = interface.strip()
     if interface == "":
         interface = "127.0.0.1"
+
     port = raw_input("Enter a port (default 9999): ")
     port = port.strip()
     if port == "": 
         port = 9999
+
+    is_daemon = raw_input("Run as daemon? (default: no): ")
+    is_daemon = is_daemon.strip()
+
     # Validate args 
     if validate(port, interface):
-        start_echo_server(int(port), interface)
+        if is_daemon.lower() in ("y", "yes"):
+            start_echo_service(int(port), interface)
+        else:
+            start_echo_server(int(port), interface)
     else:
         print("Invalid arguments. Exiting !!!")
         sys.exit(1)
