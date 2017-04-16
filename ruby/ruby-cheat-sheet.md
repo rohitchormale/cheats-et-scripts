@@ -1,3 +1,19 @@
+    
+
+## Documentation
+
+### Using ri ( ruby index) and RDoc ( Ruby Documentation)
+
+
+    # If using rvm
+    rvm docs generate ( or rvm docs generate-ri)
+    # If not using rvm
+    gem install rdoc-data
+    rdoc-date --install
+    # then see docs in your shell, using ri command
+    ri Hash
+    # Alternatively you can run 'ri' command in ruby interpreter like irb or pry
+
 
 ## Comments
 
