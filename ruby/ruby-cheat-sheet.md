@@ -123,3 +123,59 @@
     # Check if item present in array
     array.include?('foo')
 
+
+## Hashes
+
+
+### Creation
+
+
+    # Empty Hash
+    h = Hash.new
+    h = {}
+
+    # Hash with items
+    h = { "foo": "bar", "baz": 1}
+
+
+### Add
+
+
+    h["foo"] = "bar"
+    # Add items by merging 2 hashes
+    h.merge!{ "foo" => "bar"} # only `merge` instead `merge!` returns new hash without modifying old hash
+
+
+### Remove
+
+
+    h.delete("foo")
+
+
+### Notation
+
+
+    {"foo" => 1} # Here key `foo` is string
+    {:foo => 1} # Here key `foo` is symbol
+    # If all keys in hash are symbols, ruby provides alternative syntax
+    {foo: 1, bar: 2}
+
+    # In ruby 2.3.x, in all follownig cases, key is symbol
+    {:"foo" => 1}
+    {"foo": 1}
+    {:foo => 1}
+    {foo: 1}
+    
+    
+### Accessing
+
+
+    h.[](foo)
+    h.[] "foo"
+    h["foo"] # syntactic sugar
+    h[:foo] # when key is symbol
+    h.include?("foo")
+    h.length
+
+   
+        
