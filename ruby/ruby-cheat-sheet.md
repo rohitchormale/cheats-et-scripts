@@ -34,6 +34,81 @@
     =end
 
 
+# Built-in DataTypes #
+
+
+## String ##
+
+    # New string 
+    s = String.new #=> ""
+    s = String.new("foo") #=> "foo"
+    s = String.new('foo') #=> 'foo'
+    s = ""
+    s = "foo bar baz"
+    
+    # Notation
+    ## Can use both single quote or double quote to represnt strings
+    ## Prefer double quotes as they support string interpolation
+    
+    # Interpolation
+    ## var
+    name ="foo"
+    "hello world ! I am #{name}"
+
+    ## arithmetic operations
+    "count is #{3 + 3}"#=> count is 6
+
+    ## We can ommit curly braces if interpolated expression is reference to global var, instant var or class var 
+    @instance_var = "foo"
+    "#@instance_var bar!"
+
+    @class_var = "foo"
+    "#@class_var bar!"
+
+    $global_var = "foo"
+    "#@global_var bar !"
+
+    # Combine strings
+    ## using + operator
+    "foo" + "bar"
+    "foo" + "3".to_s
+    
+    ## repeated string using * operator
+    "foo" * 3
+    
+    ## concat strings
+    "foo ".concat("bar ").concat("baz ")
+    
+    ## Append to string
+    "foo" << " bar"
+   
+    # String conversation
+    3.to_s
+
+    # Cases
+    s.upcase
+    s.downcase
+    s.capitalize
+    s.swapcase
+    
+    # Other useful methods
+    s.length
+    s.reverse
+    s.chars #=> gives array of all chars 
+    
+    # Split
+    "foo bar".split #=> 
+    "foo bar".split(" ")
+    "foo bar".split(/ /)
+    "foo bar".split(//) #=> ["f", "o", "o", " ", "b", "a", "r"] 
+    first, *remaining = s.split(/,/)
+    
+    # gsub 
+    ## gsub(pattern, replacement) or gusb(pattern)
+
+
+
+
 ## Array
 
 
@@ -176,6 +251,14 @@
     h[:foo] # when key is symbol
     h.include?("foo")
     h.length
+    # array of all keys
+    h.keys
+    # array of all values
+    h.values
+    # existence of key
+    h.key?("foo")
+    # existence of value
+    h.key?("bar")
 
    
         
