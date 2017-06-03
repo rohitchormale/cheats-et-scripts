@@ -108,6 +108,16 @@
 
 
 
+## Symboles
+    Symboles are anologus to lables in real world. Useful for naming. They are equivalent to enum data types. Symboles are unique & immutable datatypes. They are more like strings but strings are mutable.
+    
+    # Notation
+    :foo = "foo"
+    :bar = "bar"
+    f = "foo"
+    b = "bar"
+
+
 
 ## Array
 
@@ -210,7 +220,7 @@
     h = {}
 
     # Hash with items
-    h = { "foo": "bar", "baz": 1}
+    h = { "foo"=> "bar", "baz"=> 1}
 
 
 ### Add
@@ -262,3 +272,193 @@
 
    
         
+
+## Control Structures
+
+###  if-elsif-else-end
+
+
+    if true
+        'if true'
+    elsif false
+        'elsif true'
+    else
+        'else true'
+    end
+
+
+    puts "foo" if true
+    
+    puts "bar" if !true
+    
+
+### for
+
+    for num in 1..10
+        puts "Number : #{num}"
+    end
+
+
+### each
+
+    (1..10).each do | number |
+        puts "Number: #{number}"
+    end
+    
+    # Alternatively surround blocks with curly braces without 'do'
+    (1..10).each { | number | puts "Number: #{number}"}
+    
+    # Iterating arrays
+    array.each do | item |
+        puts "#{item}"
+    end
+    
+    # Iterating hashesh
+    hash.each do | key, value |
+        puts "#{key}:#{value}"
+    end
+    
+    # Enumeration with index 
+    array.each_with_index do | item, index |
+        puts "#{item} at number #{index}"
+    end
+        
+
+### While
+
+    
+    counter = 1
+    while counter <=10 do
+        puts "#{counter}"
+        counter += 1
+    end
+
+
+
+## Other useful startcture
+
+### Map function
+
+
+    array = [1, 2, 3, 4]
+    doubles = array.map do | item |
+        item*2
+    end
+
+    array.map { | item | item * 2 }
+
+
+### Cases
+
+
+    case foo
+
+    when 'foo1'
+        puts "It's foo1"
+        
+    when 10..100 
+        puts "Its foo2"
+        
+    when 'foo3': 
+        puts "Its foo3"
+        
+    when 'foo4':
+        puts "Its foo4"
+    
+    else
+        puts "It's no 1"
+
+    end
+
+
+## Exception Handling
+
+
+    begin
+        raise NoMemoryError, "You run out of memory"
+
+    rescue NoMemoryError => exception_var_1
+        puts "NoMemoryError ", exception _var_1
+        
+    rescue RuntimeError => exception_var_2
+        puts "RutimeError ", exception_var_2
+    
+    rescue => exception_var_3
+        puts "Catch all other exceptions"
+            
+    else # if no exception run
+        puts "No exception at all"
+        
+    ensure # run no matter what - either exception or not
+        puts "It's like finally. Run no matter what"
+
+    end
+
+
+
+## Function
+
+### example
+    
+    
+    def foo(x, y)
+        x * y
+    end
+        
+### Function (and all blocks) return implicitely the result of last statement
+
+
+### Parentheis are optional where result is unambigous
+
+    def doubl(n)
+        n*2
+    end
+
+    double 2
+    double double 2
+
+
+### Method arguments are separated by comma
+
+
+    def add(n1, n2)
+        n1 + n2
+    end
+
+    add 2, 3
+    add 3, (add 2, 3)
+    
+
+### Yield
+
+  yield is implicit, optional block parameter to all methods
+
+
+    # example 1
+    def calculator(num1, num2)
+      yield(num1, num2)
+    end
+
+    calculator(3, 4) { | a, b | a + b } # addition
+    calculator(3, 4) { | a, b | a - b } # substration
+
+    # example 2 make yield fault-tolerant
+
+    def foo
+      if block_given?
+        yield
+      end
+    end
+
+
+
+
+
+
+
+
+## Resources
+
+    - https://learnxinyminutes.com/docs/ruby/
+    - https://rubymonk.com/learning/books/
+
