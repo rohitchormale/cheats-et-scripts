@@ -62,11 +62,11 @@
     @instance_var = "foo"
     "#@instance_var bar!"
 
-    @class_var = "foo"
-    "#@class_var bar!"
+    @@class_var = "foo"
+    "#@@class_var bar!"
 
     $global_var = "foo"
-    "#@global_var bar !"
+    "#$global_var bar !"
 
     # Combine strings
     ## using + operator
@@ -108,8 +108,8 @@
 
 
 
-## Symboles
-    Symboles are anologus to lables in real world. Useful for naming. They are equivalent to enum data types. Symboles are unique & immutable datatypes. They are more like strings but strings are mutable.
+## Symbols
+    Symbols are anologus to lables in real world. Useful for naming. They are equivalent to enum data types. Symbols are unique & immutable datatypes. They are more like strings but strings are mutable.
     
     # Notation
     :foo = "foo"
@@ -290,8 +290,27 @@
     puts "foo" if true
     
     puts "bar" if !true
-    
 
+
+### unless-else-end
+
+
+    # unless is negate of if ( i.e. if !<condition>? )
+
+    unless arr.empty?
+	puts "array is not empty"
+    else
+	puts "array is empty"
+    end
+
+    # same example with if
+    if !arr.empty?
+	puts "array is not empty"
+    else
+	puts "array is empty"
+    end
+
+    
 ### for
 
     for num in 1..10
@@ -461,4 +480,5 @@
 
     - https://learnxinyminutes.com/docs/ruby/
     - https://rubymonk.com/learning/books/
+    - https://stackoverflow.com/ 
 
