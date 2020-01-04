@@ -81,37 +81,46 @@ output = {
 import re
 
 
-def placeholder_lookup(placeholder):
-    """Extract placeholder from given string if present."""
-    try:
-        return re.compile("\((.*?)\)s").search(placeholder).group(1)
-    except AttributeError:
-        return None
+def fill_dict_template(template, values, key_lookup=True, lookup_regex="\((.*?)\)s"):
+    """Fill complex dictionary templates with values from another dict.
+  
+    Parameters:
+    template (dict): Dictinory template with placeholders to fill up
+    values (dict): Dictionary of placeholder-values. Each placeholder in template will be replaced by related value in this dictionary 
+    key_lookup (boolean): By default, both key and values having placeholders will be filled up. To disable, key fill up, set this option False
+    lookup_regex (string): Provide custom regex for placeholder. Default placeholder will be catched in patter %(placeholder)s
 
+    Returns:
+    dict: Template by filling up values
+    """
 
-def fill_dict_template(template, values):
-    """fill complex dictionary templates with values from another dict."""
+    def lookup(text):
+        try:
+            placeholder = re.compile(lookup_regex).search(text).group(1)
+        except AttributeError:
+            placeholder = None
+        if placeholder is not None and placeholder in values:
+            return values[placeholder]
+        return text
+
     temp = {}
     for i, j in template.items():
+        k = lookup(i) if key_lookup else i
         if isinstance(j, str) and j.strip() != "":
-            placeholder = placeholder_lookup(j)
-            if placeholder is not None and placeholder in values:
-                temp[i] = values[placeholder]
-            else:
-                temp[i] = j
+            temp[k] = lookup(j)
         elif isinstance(j, list):
             subtemp = []
-            for k in j:
-                if isinstance(k, dict):
-                    filled_dict = fill_dict_template(k, values)
+            for l in j:
+                if isinstance(l, dict):
+                    filled_dict = fill_dict_template(l, values)
                     subtemp.append(filled_dict)
                 else:
-                    subtemp.append(k)
-            temp[i] = subtemp
+                    subtemp.append(l)
+            temp[k] = subtemp
         elif isinstance(j, dict):
-            temp[i] = fill_dict_template(j, values)
+            temp[k] = fill_dict_template(j, values)
         else:
-            temp[i] = j
+            temp[k] = j
     return temp
 
 
