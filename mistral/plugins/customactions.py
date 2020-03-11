@@ -160,7 +160,7 @@ class HTTPAction(actions.Action):
             'elapsed': resp.elapsed.total_seconds()
         }
 
-        if resp.status_code not in range(200, 307) or resp.status_code not in (409,):
+        if resp.status_code not in range(200, 307) and resp.status_code not in (409,):
             return actions.Result(error=_result)
 
         return _result
