@@ -9,9 +9,8 @@ baz:
   tasks:
     workflow_trigger:
       on-success:
-        
-        get_layman: <% $.personal = true %>
-        get_google: <% $.personal != true %>
+        - get_layman: <% $.personal = true %>
+        - get_google: <% $.personal != true %>
 
     get_layman:
       description: getting laymanclass
