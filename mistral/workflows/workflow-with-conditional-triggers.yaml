@@ -1,0 +1,41 @@
+---
+version: "2.0"
+
+baz:
+  type: direct
+  input:
+    - personal: true
+
+  tasks:
+    workflow_trigger:
+      on-success:
+        
+        get_layman: <% $.personal = true %>
+        get_google: <% $.personal != true %>
+
+    get_layman:
+      description: getting laymanclass
+      action: custom.http url='http://laymanclass.com'
+      on-success: get_rohitchormale
+      on-error: fail
+
+    get_rohitchormale:
+      description: getting rohitchormale.me
+      action: custom.http url='http://rohtichormale.me'
+      on-success: success_task
+      on-error: fail
+
+    get_google:
+      description: getting google
+      action: custom.http url='http://google.com'
+      on-success: get_ycombi
+      on-error: fail
+
+    get_ycombi:
+      description: getting hacker news
+      action: custom.http url='http://news.ycombinator.com'
+      on-success: success_task
+      on-error: fail
+
+    success_task:
+      action: std.echo output='Done'

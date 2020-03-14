@@ -1,0 +1,15 @@
+---
+version: "2.0"
+
+foo:
+  type: direct
+  tasks:
+    create_google:
+      description: getting google
+      action: std.http url='http://google.com'
+      on-success: success_task
+      on-error: fail
+
+    success_task:
+      action: std.echo output='Done'
+
