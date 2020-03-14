@@ -21,7 +21,7 @@ baz:
 
     get_rohitchormale:
       description: getting rohitchormale.me
-      action: custom.http url='http://rohtichormale.me'
+      action: custom.http url='http://rohitchormale.me'
       on-success: success_task
       on-error: fail
 
