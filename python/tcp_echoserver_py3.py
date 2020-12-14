@@ -1,9 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Simple TCP echo server
 """
-
 
 import socket
 import threading
@@ -20,7 +19,7 @@ def validate(port, interface):
         if not interface.lower() == "localhost":
             socket.inet_aton(interface)
     except (ValueError, socket.error) as e:
-        print e
+        print(e)
         return False
     return True
 
@@ -29,6 +28,7 @@ def start_echo_server(port, interface):
         buffer = client.recv(1042)
         if buffer:
             client.send(buffer)
+        # TODO - keep client connected
         client.close()
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -44,35 +44,39 @@ def start_echo_server(port, interface):
 
 
 def start_echo_service(port, interface):
-    import daemon
-    with daemon.DaemonContext():
-        start_echo_server(port, interface)
-
+    # TODO
+    pass
 
 def main():
     # Take args from user
-    interface = raw_input("Enter an interface (default 127.0.0.1): ")
+    interface = input("Enter an interface (default 127.0.0.1): ")
     interface = interface.strip()
     if interface == "":
         interface = "127.0.0.1"
 
-    port = raw_input("Enter a port (default 9999): ")
+    port = input("Enter a port (default 9999): ")
     port = port.strip()
     if port == "": 
         port = 9999
 
-    is_daemon = raw_input("Run as daemon? (default: no): ")
-    is_daemon = is_daemon.strip()
-
-    # Validate args 
     if validate(port, interface):
-        if is_daemon.lower() in ("y", "yes"):
-            start_echo_service(int(port), interface)
-        else:
-            start_echo_server(int(port), interface)
+        start_echo_server(int(port), interface)
     else:
         print("Invalid arguments. Exiting !!!")
         sys.exit(1)
+
+    # TODO - run as daemon
+    # is_daemon = input("Run as daemon? (default: no): ")
+    # is_daemon = is_daemon.strip()
+
+    # if validate(port, interface):
+    #     if is_daemon.lower() in ("y", "yes"):
+    #         start_echo_service(int(port), interface)
+    #     else:
+    #         start_echo_server(int(port), interface)
+    # else:
+    #     print("Invalid arguments. Exiting !!!")
+    #     sys.exit(1)
 
 
 if __name__ == '__main__':
