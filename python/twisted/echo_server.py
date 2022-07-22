@@ -8,6 +8,7 @@
 __author__ = 'Rohit Chormale'
 
 
+import sys
 from twisted.internet import reactor, protocol
 
 
@@ -16,15 +17,15 @@ class Echo(protocol.Protocol):
     Echo server protocol
     """
     def connectionMade(self):
-	print("%s | New connection" %self.transport.getPeer())
-	welcome_msg = """###################################\r\n"""
+        print("%s | New connection" %self.transport.getPeer())
+        welcome_msg = """###################################\r\n"""
         msg1 = """      Welcome to Echo Server         \r\n"""
         msg2 = """###################################\r\n"""
         self.transport.write(welcome_msg+msg1+msg2)
-    
+
     def dataReceived(self, data):
-        "As soon as any data is received, write it back."
-	print("Client at %s: %s" %(self.transport.getPeer(), data))
+        """As soon as any data is received, write it back."""
+        print("Client at %s: %s" %(self.transport.getPeer(), data))
         self.transport.write(data)
 
     def connectionLost(self, reason):
@@ -51,23 +52,23 @@ def validate(port, interface):
             raise ValueError
         if not interface.lower() == "localhost":
             socket.inet_aton(interface)
-	return True
+        return True
     except ValueError:
         return False
     except socket.error:
-        log.msg("Validation | Invalid IP")
+        print("Validation | Invalid IP")
         return False
     return True
 
 
 def main():
     # Take args from user
-    interface = raw_input("Enter an interface (default 127.0.0.1): ")
+    interface = input("Enter an interface (default 127.0.0.1): ")
     interface = interface.strip()
     if interface == "": 
         interface = "127.0.0.1"
 
-    port = raw_input("Enter a port (default 9999): ")
+    port = input("Enter a port (default 9999): ")
     port = port.strip()
     if port == "": 
         port = 9999
