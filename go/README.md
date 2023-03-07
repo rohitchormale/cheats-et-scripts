@@ -19,9 +19,9 @@
 
 
 ## Logical operators
-- && (and)
-- || (or)
-- ! (not)
+- `&&` (and)
+- `||` (or)
+- `!` (not)
 
 ## Bitwise operators
 
