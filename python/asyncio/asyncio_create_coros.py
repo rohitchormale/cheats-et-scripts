@@ -46,9 +46,12 @@ async def main4():
   
 async def main5(): 
     # with TaskGroup no need of `await`. `await` will be called automatically on exiting context-manager. Added in python3.11
+    # keep references to create_task (task1, task2) to avoid uninteded bugs. see - 
+    # https://stackoverflow.com/a/75437536
+    # https://docs.python.org/3/library/asyncio-task.html#shielding-from-cancellation
     async with asyncio.TaskGroup() as tg:
-        tg.create_task(non_blocking_func(3))
-        tg.create_task(non_blocking_func(1))
+        task1 = tg.create_task(non_blocking_func(3))
+        task2 = tg.create_task(non_blocking_func(1))
    
     
 asyncio.run(main1())
